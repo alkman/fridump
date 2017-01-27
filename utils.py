@@ -20,9 +20,11 @@ def strings(filename,directory, min=4):
     strings_file = os.path.join(directory,"strings.txt")
     path = os.path.join(directory,filename)
 
-    str_list = re.findall("[A-Za-z0-9/\-:;.,_$%'!()[\]<> \#]+",open(path,"rb").read())
-    with open(strings_file,"ab") as st:
-        for string in str_list:
-            if len(string)>min:
-                logging.debug(string)
-                st.write(string+"\n")
+    str_list = re.findall(b"[A-Za-z0-9/\-:;.,_$%'!()[\]<> \#]+",open(path,"rb").read())
+    with open(strings_file,"at") as st:
+        for s in str_list:
+            #mystring = s.decode(sys.stdout.encoding)
+            mystring = s.decode("UTF-8")
+            if len(mystring)>min:
+                logging.debug(mystring)
+                st.write(mystring+"\n")
